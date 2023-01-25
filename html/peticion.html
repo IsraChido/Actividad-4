@@ -15,4 +15,35 @@
     <button id="btnCargar">Cargar Información</button>
     <button id="btnLimpiar">Limpiar</button>
 </body>
+<script>
+    function ajax_cargar_datos(){
+        const http = new XMLHttpRequest;
+        const url = "https://jsonplaceholder.typicode.com/photos";
+        http.onreadystatechange = function(){
+            // Validar la respuesta
+            if(this.status == 200 && this.readyState == 4){
+                console.log(this.responseText);
+                let res = document.getElementById("respuesta");
+                res.innerHTML="";
+
+                // Convertir en formato JSON para hacer objetos
+                const json = JSON.parse(this.responseText);
+
+                for(const datos of json){
+                    if(datos.id<=30 && datos.id%2==0){
+                        res.innerHTML += "<section>" + "<p>Álbum ID: " + datos.albumId + "<br>" + "<p>ID: " + datos.id + "<br>" + "<p>Título: " + datos.title + "<br><br>" + "<a href='" + datos.url + "'>" + "<img width='200px' height='200px' src='" + datos.thumbnailUrl + "'></a>" + "</section>";
+                    } else if(datos.id<=30){
+                        res.innerHTML += "<aside>" + "<p>Álbum ID: " + datos.albumId + "<br>" + "<p>ID: " + datos.id + "<br>" + "<p>Título: " + datos.title + "<br><br>" + "<a href='" + datos.url + "'>" + "<img width='200px' height='200px' src='" + datos.thumbnailUrl + "'></a>" + "</aside>";
+                    }
+                }
+            }
+        }
+        http.open('GET', url, true);
+        http.send();
+    }
+
+    document.getElementById("btnCargar").addEventListener("click",function(){
+        ajax_cargar_datos();
+    });
+</script>
 </html>
