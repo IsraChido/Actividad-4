@@ -45,5 +45,10 @@
     document.getElementById("btnCargar").addEventListener("click",function(){
         ajax_cargar_datos();
     });
+
+    document.getElementById('btnLimpiar').addEventListener('click', function(){
+        const r = document.getElementById("respuesta");
+        r.innerHTML="";
+    })
 </script>
 </html>
